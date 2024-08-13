@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -84,12 +84,12 @@
             <div class="jumbotron p-5 mb-4">
                 <div class="container">
                     @if (session('success'))
-                        <div class="alert alert-success" role="alert">
+                        <div id="success-alert" class="alert alert-success" role="alert">
                             {{ session('success') }}
                         </div>
                     @endif
 
-                    <h1 class="display-5 fw-bold text-custom">Bienvenido, {{ auth()->user()->nombre }} {{ auth()->user()->app }} {{ auth()->user()->apm }}</h1>
+                    <h1 class="display-5 fw-bold text-custom">Bienvenid@, {{ auth()->user()->nombre }} {{ auth()->user()->app }} {{ auth()->user()->apm }}</h1>
                     <p class="text-custom">Estudiante con Matricula "{{ auth()->user()->matricula }}"</p>
                     <p>Bienvenido al sistema de encuesta para egresados de la Universidad Tecnológica del Valle de Toluca (UTVT). Esta encuesta ha sido diseñada para recabar información valiosa sobre tu experiencia laboral y tu evaluación de los diferentes aspectos de nuestra institución. Tu participación es fundamental para que podamos entender mejor cómo la formación que recibiste en la UTVT ha influido en tu desarrollo profesional y para identificar áreas de mejora en nuestra oferta educativa. Agradecemos de antemano tu tiempo y colaboración.</p>
                 </div>
@@ -113,7 +113,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-custom">Encuesta Egresados</h5>
                             <p class="card-text">Te invitamos a participar en esta encuesta diseñada para entender mejor tu situación laboral actual y tu percepción sobre diferentes aspectos de la Universidad Tecnológica del Valle de Toluca (UTVT). Tu opinión es muy valiosa para nosotros.</p>
-                            <a class="btn btn-warning">Realizar Encuesta</a>
+                            <a class="btn btn-warning" href="{{ route('welcome') }}">Realizar Encuesta</a>
                         </div>
                     </div>
                 </div>
@@ -131,6 +131,30 @@
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var successAlert = document.getElementById('success-alert');
+            if (successAlert) {
+                setTimeout(function () {
+                    successAlert.classList.add('fade');
+                    setTimeout(function () {
+                        successAlert.style.display = 'none';
+                    }, 150);
+                }, 5000);
+            }
+        });
+    </script>
+
+    <script>
+        // Evitar que el botón de retroceso funcione
+        history.pushState(null, null, location.href);
+
+        // Detectar cuando el usuario intenta usar el botón de retroceso
+        window.onpopstate = function(event) {
+            history.go(1); // Redirige al usuario hacia adelante en el historial
+        };
+    </script>
 </body>
 
 </html>

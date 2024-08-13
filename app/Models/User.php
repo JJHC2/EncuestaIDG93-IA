@@ -23,4 +23,16 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // Relación con Students
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
+
+    // Relación con ExperienciaProfesional
+    public function experienciaProfesionales()
+    {
+        return $this->hasMany(ExperienciaProfesional::class);
+    }
 }

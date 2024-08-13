@@ -67,12 +67,11 @@
 
     <div class="card">
         <div class="logo-container">
-            <img src="{{ asset('images/logo') }}" alt="Logo" class="logo">
+            <img src="/images/logo.jpg" alt="Logo" class="logo">
         </div>
         <h2 class="mb-3" style="color: #8A2036;">Recuperar Contraseña</h2>
         <p class="message">Hemos enviado un enlace a tu correo electrónico para restablecer tu contraseña.</p>
         <a href="{{ route('login') }}" class="btn btn-primary">Volver al Inicio</a>
-        <a href="#" class="back-link">¿No recibiste el correo? Reenviar</a>
     </div>
 
     <!-- Bootstrap JS -->

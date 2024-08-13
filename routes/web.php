@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExperienciaProfesionalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\WelcomeController;
+use App\Models\ExperienciaProfesional;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,11 +30,10 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 // Ruta para cerrar sesión
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-// Ruta para el dashboard, accesible solo para usuarios autenticados
-Route::get('dashboard', function () {
-    return view('dashboard');
-})->middleware('auth');
 
+Route::get('dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');
 
 
 Route::get('password/reset', function (Request $request) {
@@ -110,3 +114,17 @@ Route::post('/password/email', function (Request $request) {
 })->name('password.email');
 
 
+//Rutas de OSMAR
+Route::get('welcome', [WelcomeController::class, 'index'])->name('welcome');
+// Ruta para la vista de encuesta completada
+Route::view('/encuesta-completada', 'encuesta_completada')->name('encuesta_completada');
+
+
+Route::resource('students', StudentController::class);
+Route::view('/preguntas', 'components.welcome')->name('preguntas');
+Route::post('/students', [StudentController::class, 'store'])->name('students.store');
+Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
+
+Route::get('/experiencia_profesional/create', [ExperienciaProfesionalController::class, 'create'])->name('experiencia_profesional.create');
+Route::post('/experiencia_profesional', [ExperienciaProfesionalController::class, 'store'])->name('experiencia_profesional.store');
+Route::get('/experiencia_profesional', [ExperienciaProfesionalController::class, 'index'])->name('experiencia_profesional.index');

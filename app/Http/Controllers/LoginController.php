@@ -12,18 +12,20 @@ class LoginController extends Controller
     {
         return view('login');
     }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-    
+
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+            return redirect()->intended('dashboard')->with('success', 'Inicio de sesión exitoso.');
         }
-    
+
         return redirect()->back()->withErrors([
             'email' => 'Las credenciales proporcionadas son incorrectas.',
         ]);
     }
+
     public function logout(Request $request)
     {
         Auth::logout();

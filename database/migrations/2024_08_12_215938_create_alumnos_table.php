@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('app');
             $table->string('apm');
-            $table->integer('matricula');
+            $table->integer('matricula')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();
